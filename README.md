@@ -7,6 +7,7 @@ Add badges to your Profile and Projects.
 - [Markdown Badges](#markdown-badges)
 - [Table of contents](#table-of-contents)
 - [Usage](#usage)
+- [Examples](#examples)
 - [Tips](#tips)
 - [Contribution](#contribution)
 - [License](#license)
@@ -58,8 +59,33 @@ To use a badge:
 - Via Github
     1. Press `Ctrl` + `f` on your keyboard, to bring out the search modal.
     1. Enter the name of the badge you need.
-    1. Copy the appropriate `![Name](link)` element and paste it in your Markdown file (e.g. README.md)
+    1. Copy the name of the badge you want to use
+    1. Enter the name in the variables section of the job
 - You could also visit the live site at [ileriayo.github.io/markdown-badges/](https://ileriayo.github.io/markdown-badges/)
+
+# Examples
+Create a file called badges-action-markdown.yml under the .github/workflows directory
+```yaml
+on:
+  push:
+    branches:
+      - 'master'
+    paths:
+      - '.github/workflows/badges-action-markdown.yml'
+
+jobs:
+  update-profile-badges:
+    runs-on: ubuntu-latest
+    name: Update profile badges
+    steps:
+      - name: Update Badges
+        uses: kamuridesu/markdown-badges@v0.0.1
+        with:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          BADGES: "Python Golang Java 'Sublime Text' 'Visual Studio Code'"
+```
+Note that to choose tools where their names contains spaces, you can use simple quotes (').
+
 
 # Tips
 
