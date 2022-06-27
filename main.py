@@ -18,8 +18,8 @@ GH_API_URL = os.getenv("INPUT_GH_API_URL")
 COMMIT_MESSAGE = os.getenv("INPUT_COMMIT_MESSAGE")
 
 BADGES = os.getenv("INPUT_BADGES")
-# if BADGES is None or BADGES == "None":
-#     raise Exception("Failed to get badges!")
+if BADGES is None or BADGES == "None":
+    raise Exception("Failed to get badges!")
 
 BADGE_SIZE = os.getenv("INPUT_BADGE_SIZE", '110')
 
@@ -129,11 +129,11 @@ def generate_new_readme(md_badges, readme):
 
 
 if __name__ == "__main__":
-    print("\n".join(getWantedBadgesMarkdown(getAllBadges(requests.get("https://raw.githubusercontent.com/kamuridesu/markdown-badges/master/README.md").text), parseArguments("Python Java JavaScript 'Shell Script' 'GitHub Actions' 'GitLab CI' Django Flask Node.js Spring AWS Azure 'Google Cloud' 'IntelliJ IDEA' Neovim 'Sublime Text' 'Visual Studio Code' Arch Windows Ansible Docker Jira Kubernetes Terraform Vagrant Jenkins Git Gitea GitHub GitLab"))))
-    # git = GithubRepo()
-    # readme = git.get_readme()
-    # all_badges = getAllBadges(requests.get("https://raw.githubusercontent.com/kamuridesu/markdown-badges/master/README.md").text)
-    # wanted_badges = getWantedBadgesMarkdown(all_badges, parseArguments(BADGES))
-    # new_readme = generate_new_readme("\n".join(wanted_badges), readme)
-    # if new_readme != readme:
-    #     git.save_readme(new_readme)
+    # print("\n".join(getWantedBadgesMarkdown(getAllBadges(requests.get("https://raw.githubusercontent.com/kamuridesu/markdown-badges/master/README.md").text), parseArguments("Python Java JavaScript 'Shell Script' 'GitHub Actions' 'GitLab CI' Django Flask Node.js Spring AWS Azure 'Google Cloud' 'IntelliJ IDEA' Neovim 'Sublime Text' 'Visual Studio Code' Arch Windows Ansible Docker Jira Kubernetes Terraform Vagrant Jenkins Git Gitea GitHub GitLab"))))
+    git = GithubRepo()
+    readme = git.get_readme()
+    all_badges = getAllBadges(requests.get("https://raw.githubusercontent.com/kamuridesu/markdown-badges/master/README.md").text)
+    wanted_badges = getWantedBadgesMarkdown(all_badges, parseArguments(BADGES))
+    new_readme = generate_new_readme("\n".join(wanted_badges), readme)
+    if new_readme != readme:
+        git.save_readme(new_readme)
