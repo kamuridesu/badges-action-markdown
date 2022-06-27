@@ -17,6 +17,8 @@ GH_API_URL = os.getenv("INPUT_GH_API_URL")
 COMMIT_MESSAGE = os.getenv("INPUT_COMMIT_MESSAGE")
 
 BADGES = os.getenv("BADGES")
+if BADGES is None or BADGES is "None":
+    raise Exception("Failed to get badges!")
 
 BADGE_SIZE = os.getenv("INPUT_BADGE_SIZE", '110')
 
