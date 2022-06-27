@@ -82,7 +82,7 @@ jobs:
     name: Update profile badges
     steps:
       - name: Update Badges
-        uses: kamuridesu/markdown-badges@v0.0.1
+        uses: kamuridesu/markdown-badges@v0.0.2
         with:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
           BADGES: "Python Golang Java 'Sublime Text' 'Visual Studio Code'"
