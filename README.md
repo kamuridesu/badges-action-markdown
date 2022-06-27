@@ -57,6 +57,7 @@ Add badges to your Profile and Projects.
 # Usage
 To use a badge:
 - Via Github
+    1. Create entries `<!--START_SECTION:stack-->` and `<!--END_SECTION:stack-->` into your README.md file
     1. Press `Ctrl` + `f` on your keyboard, to bring out the search modal.
     1. Enter the name of the badge you need.
     1. Copy the name of the badge you want to use
@@ -64,6 +65,8 @@ To use a badge:
 - You could also visit the live site at [ileriayo.github.io/markdown-badges/](https://ileriayo.github.io/markdown-badges/)
 
 # Examples
+Add the following entries: `<!--START_SECTION:stack-->` and `<!--END_SECTION:stack-->` into your README.md file.
+
 Create a file called badges-action-markdown.yml under the .github/workflows directory
 ```yaml
 on:
