@@ -11,6 +11,8 @@ from github import Github, GithubException
 START_COMMENT = "<!--START_SECTION:stack-->"
 END_COMMENT = "<!--END_SECTION:stack-->"
 
+print(os.environ)
+
 REPOSITORY = os.getenv("INPUT_REPOSITORY")
 GH_TOKEN = os.getenv("INPUT_GH_TOKEN")
 GH_API_URL = os.getenv("INPUT_GH_API_URL")
