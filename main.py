@@ -11,14 +11,12 @@ from github import Github, GithubException
 START_COMMENT = "<!--START_SECTION:stack-->"
 END_COMMENT = "<!--END_SECTION:stack-->"
 
-print(os.environ)
-
 REPOSITORY = os.getenv("INPUT_REPOSITORY")
 GH_TOKEN = os.getenv("INPUT_GH_TOKEN")
 GH_API_URL = os.getenv("INPUT_GH_API_URL")
 COMMIT_MESSAGE = os.getenv("INPUT_COMMIT_MESSAGE")
 
-BADGES = os.getenv("BADGES")
+BADGES = os.getenv("INPUT_BADGES")
 if BADGES is None or BADGES is "None":
     raise Exception("Failed to get badges!")
 
