@@ -1,0 +1,38 @@
+name: "Profile custom badges"
+author: kamuridesu
+description: "Add a badges in your Readme"
+
+inputs:
+  GH_TOKEN:
+    description: "GitHub access token with Repo scope"
+    required: true
+    default: ${{ github.token }}
+
+  REPOSITORY:
+    description: "Your GitHub repository"
+    default: ${{ github.repository }}
+    required: false
+
+  COMMIT_MESSAGE:
+    description: "Add a commit message of your choice"
+    default: "Updated README with new badges"
+    required: false
+
+  BADGES:
+    description: "All the badges you want to add"
+    default: "None"
+    required: true
+
+  BADGE_SIZE:
+    description: "Defines the badge dimension."
+    default: "110"
+    required: false
+
+  GH_API_URL: 
+    description: "The GitHub URL, can changed for enterprise github"
+    default: https://api.github.com
+    required: false
+
+runs:
+  using: "docker"
+  image: "Dockerfile"
