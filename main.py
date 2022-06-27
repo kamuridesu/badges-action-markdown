@@ -4,6 +4,7 @@ import base64
 import shlex
 import json
 import os
+import requests
 
 from github import Github, GithubException
 
@@ -17,7 +18,7 @@ GH_API_URL = os.getenv("INPUT_GH_API_URL")
 COMMIT_MESSAGE = os.getenv("INPUT_COMMIT_MESSAGE")
 
 BADGES = os.getenv("INPUT_BADGES")
-if BADGES is None or BADGES is "None":
+if BADGES is None or BADGES == "None":
     raise Exception("Failed to get badges!")
 
 BADGE_SIZE = os.getenv("INPUT_BADGE_SIZE", '110')
@@ -50,7 +51,7 @@ def processTable(table: str) -> list[dict[str, str]]:
                 result.append(data)
     return result
 
-def processLines(file_content: str, save=False) -> list[dict[str, str]]:
+def getAllBadges(file_content: str, save=False) -> list[dict[str, str]]:
     lines: list[str] = file_content.split("\n")
     wanted_lines: list[dict[str, str]] = []
     header: str = ""
@@ -74,15 +75,10 @@ def processLines(file_content: str, save=False) -> list[dict[str, str]]:
     return wanted_lines
 
 
-def getAllBadges(file: str="README.md") -> list[dict[str, str]]:
-    content: str = readReadme(file)
-    return processLines(content)
-
-
-def getWantedBadgesMarkdown(badges_list: list[str]) -> list[str]:
+def getWantedBadgesMarkdown(all_badges: list[dict[str, str]], badges_list: list[str]) -> list[str]:
     markdowns: list[str] = []
     for badge in badges_list:
-        for item in getAllBadges():
+        for item in all_badges:
             if badge.lower() in item["Name"].lower():
                 markdowns.append(item["Badge"])
     return markdowns
@@ -133,9 +129,11 @@ def generate_new_readme(md_badges, readme):
 
 
 if __name__ == "__main__":
+    # print(getWantedBadgesMarkdown(getAllBadges(requests.get("https://raw.githubusercontent.com/kamuridesu/markdown-badges/master/README.md").text), parseArguments("Python")))
     git = GithubRepo()
     readme = git.get_readme()
-
-    new_readme = generate_new_readme(getWantedBadgesMarkdown(parseArguments(BADGES)), readme)
+    all_badges = getAllBadges(requests.get("https://raw.githubusercontent.com/kamuridesu/markdown-badges/master/README.md").text)
+    wanted_badges = getWantedBadgesMarkdown(all_badges, parseArguments(BADGES))
+    new_readme = generate_new_readme("\n".join(wanted_badges), readme)
     if new_readme != readme:
         git.save_readme(new_readme)
